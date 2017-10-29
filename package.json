@@ -35,6 +35,10 @@
     "start": "node server.js",
     "start:dev": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RealTeamCtrl8/Podracing"
+  },
   "author": "Ctrl+8",
   "license": "ISC"
 }
