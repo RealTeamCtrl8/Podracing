@@ -9,9 +9,12 @@ describe('Planet model', () => {
         assert.equal(validate, undefined);
     });
 
-    it('should reject a bad planet name', () => {
-        const badPlanet = new Planet({});
+    it.only('should reject a bad planet name', () => {
+        const badPlanet = new Planet({
+            planets: [{
+            }]}); 
         const {errors} = badPlanet.validateSync();
-        assert.equal(errors.name.kind,'required');
+        console.log('==============', errors);
+        assert.equal(errors['planets.0.name'].kind,'required');
     });
 });
