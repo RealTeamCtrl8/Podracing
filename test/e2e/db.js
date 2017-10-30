@@ -8,6 +8,6 @@ after(() => mongoose.connection.close());
 
 module.exports = {
     drop(){
-        return mongoose.connection.dropDatabase;
+        return mongoose.connection.dropDatabase();
     }
 };

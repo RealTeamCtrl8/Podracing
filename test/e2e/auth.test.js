@@ -29,7 +29,7 @@ describe.only('Auth test', () => {
             assert.ok(userToken);
         });
 
-        it.only('should reject user with no password', async () => {
+        it('should reject user with no password', async () => {
             try {
                 const badUser = {
                     name: 'bad',
@@ -40,13 +40,14 @@ describe.only('Auth test', () => {
                     .send(badUser);
                 throw new Error ('unexpected success');
             }
-
             catch (err) {
                 assert.equal(err.status, 401);
-            }
-            
+            } 
         });
-    });
+    });//End of signup tests
 
+    describe('Signin tests', () => {
+        it
+    });
 
 });
