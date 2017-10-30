@@ -1,6 +1,10 @@
+/*eslint-disable*/
+
 const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
+
+console.log('hi');
 
 describe.only('Auth test', () => {
     let userToken = null;
@@ -23,6 +27,7 @@ describe.only('Auth test', () => {
     });
 
     it('should create a user token on signin', () => {
+        console.log('=========USER TOKEN IS', userToken)
         assert.ok(userToken);
     });
 
