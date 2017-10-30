@@ -44,7 +44,7 @@ describe.only('Auth test', () => {
                 assert.equal(err.status, 401);
             } 
         });
-    });//End of signup tests
+    });
 
     describe('Signin tests', () => {
         it('should sign in with same account info', async () => {
@@ -53,6 +53,19 @@ describe.only('Auth test', () => {
                 .send(newUser);
             assert.ok(body.token);
         });
-    });
 
+        it.only('should return error with invalid password signin', async () => {
+            try{
+                newUser.password = 'bad';
+                await request
+                    .post('/api/auth/signin')
+                    .send(newUser);
+                throw new Error('unexpected success');
+            }
+            catch(err) {
+                assert.equal(err.status, 401);
+            }
+        });
+
+    });
 });
