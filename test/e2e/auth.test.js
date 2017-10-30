@@ -47,7 +47,12 @@ describe.only('Auth test', () => {
     });//End of signup tests
 
     describe('Signin tests', () => {
-        it
+        it('should sign in with same account info', async () => {
+            const {body} = await request
+                .post('/api/auth/signin')
+                .send(newUser);
+            assert.ok(body.token);
+        });
     });
 
 });
