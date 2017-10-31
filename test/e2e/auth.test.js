@@ -2,7 +2,7 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 
-describe.only('Auth test', () => {
+describe('Auth test', () => {
     let userToken = null;
     let newUser = null;
     beforeEach( async () => {
@@ -53,7 +53,7 @@ describe.only('Auth test', () => {
             assert.ok(body.token);
         });
 
-        it.only('should return error with invalid password signin', async () => {
+        it('should return error with invalid password signin', async () => {
             try{
                 newUser.password = 'bad';
                 await request
