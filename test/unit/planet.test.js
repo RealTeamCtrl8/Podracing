@@ -10,8 +10,10 @@ describe('Planet model', () => {
     });
 
     it('should reject a bad planet name', () => {
-        const badPlanet = new Planet({});
+        const badPlanet = new Planet({
+            planetArray: [{
+            }]}); 
         const {errors} = badPlanet.validateSync();
-        assert.equal(errors.name.kind,'required');
+        assert.equal(errors['planetArray.0.name'].kind,'required');
     });
 });
