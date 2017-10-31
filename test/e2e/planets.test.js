@@ -1,13 +1,13 @@
-const {assert} = require('chai');
+const  {assert} = require('chai');
 const request = require('./request');
 const db = require('./db');
 
-describe('Vehicles test', () => {
+describe('Planets test', () => {
     beforeEach(() => db.drop());
 
-    it('should retrieve all vehicles from API', () => {
-        return request
-            .get('/api/vehicles/')
+    it.only('should retrieve all planets from API', () => {
+        return request 
+            .get('/api/planets/')
             .then(({body}) => {
                 assert.ok(body);
             });
