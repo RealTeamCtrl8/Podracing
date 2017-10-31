@@ -5,7 +5,7 @@ const db = require('./db');
 describe('Characters test', () => {
     beforeEach(()=> db.drop());
 
-    it.only('should retrieve all characters from api', () => {
+    it('should retrieve all characters from api', () => {
         return request
             .get('/api/characters/')
             .then( ({body}) => {
