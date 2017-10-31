@@ -6,12 +6,12 @@ describe('Event model', () => {
 
     });
 
-    it('should validate a good model', () => {
+    it.skip('should validate a good model', () => {
         const validate = event.validateSync();
         assert.equal(validate, undefined);
     });
 
-    it('', () => {
+    it.skip('', () => {
         const badEvent = new Event({}); 
         const {errors} = badEvent.validateSync();
         assert.equal(errors.event.kind,'required');
