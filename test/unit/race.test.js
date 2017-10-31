@@ -1,22 +1,15 @@
 const {assert} = require('chai');
 const Race = require('../../lib/models/race');
-const Planet = require('../../lib/models/planet');
 
 
 describe('Race model', () => {
     const race = new Race({
-        planet: {
+        planet: 'Aleran',
+        user: {
             type: Schema.Types.ObjectId,
-            ref: 'Planet',
-            required: true
+            ref: 'User'
         },
-        raceLog: [{
-            planet: String,
-            race: String,
-            winner: String
-        }],
-        logger: [],
-        bankRoll:
+        endTime: Number
 
 
     });
