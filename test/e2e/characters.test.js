@@ -30,7 +30,7 @@ describe('Characters test', () => {
             });
     });
 
-    it.only('should reject attempt to get all characters from unauthorized user token', () => {
+    it('should reject attempt to get all characters from unauthorized user token', () => {
         return request.get('/api/characters')
             .set('Authorization', 'badtoken6666')
             .then( () => {
