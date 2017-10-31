@@ -4,7 +4,7 @@ const db = require('./db');
 
 let newUser = null;
 let userToken = null;
-describe.only('Characters test', () => {
+describe('Characters test', () => {
     beforeEach(()=> {
         db.drop();
 
@@ -23,9 +23,11 @@ describe.only('Characters test', () => {
             });
     });
 
-    it('should retrieve all characters from api', () => {
-        return request.get('/api/characters?page=1')
+    it.only('should retrieve all characters from api when requested from authorized user', () => {
+        return request.get('/api/characters')
+            .set('Authorization', userToken)
             .then( ({body}) => {
+                console.log(body);
                 assert.ok(body[0].name);
             });
     });
