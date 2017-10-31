@@ -2,6 +2,8 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 
+
+//TODO: convert asyncs to oldschool promises (for consistency)
 describe('Auth test', () => {
     let userToken = null;
     let newUser = null;
@@ -45,11 +47,14 @@ describe('Auth test', () => {
         });
     });
 
-    describe('Signin tests', () => {
+    describe.only('Signin tests', () => {
         it('should sign in with same account info', async () => {
             const {body} = await request
                 .post('/api/auth/signin')
-                .send(newUser);
+                .send({
+                    name: 'xXcYbEr_GoKu_666Xx',
+                    password: '123hello'
+                });
             assert.ok(body.token);
         });
 
