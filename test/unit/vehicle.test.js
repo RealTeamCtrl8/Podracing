@@ -2,8 +2,12 @@ const {assert} = require('chai');
 const Vehicle = require('../../lib/models/vehicle');
 
 describe('Vehicle model', () => {
-    const vehicle = new Vehicle({name: 'tawser'});
-
+    const vehicle = new Vehicle({
+        name: 'tawser', 
+        cost_in_credits:'100', 
+        max_atmosphering_speed:'3'
+    });
+    
     it('should validate model', () => {
         const validate = vehicle.validateSync();
         assert.equal(validate, undefined);
