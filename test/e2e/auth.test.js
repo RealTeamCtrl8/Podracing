@@ -47,7 +47,7 @@ describe('Auth test', () => {
         });
     });
 
-    describe.only('Signin tests', () => {
+    describe('Signin tests', () => {
         it('should sign in with same account info', async () => {
             const {body} = await request
                 .post('/api/auth/signin')
