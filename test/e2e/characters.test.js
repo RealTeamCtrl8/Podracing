@@ -8,7 +8,6 @@ describe('Characters test', () => {
     it('should retrieve all vehicles from api', () => {
         return request.get('/api/characters?page=1')
             .then( ({body}) => {
-                console.log(body);
                 assert.ok(body[0].name);
             });
     });
