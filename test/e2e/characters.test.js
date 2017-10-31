@@ -5,10 +5,12 @@ const db = require('./db');
 describe('Characters test', () => {
     beforeEach(()=> db.drop());
 
-    it('should retrieve all vehicles from api', () => {
-        return request.get('/')
-            .then( got => {
-                assert.ok(got);
+    it.only('should retrieve all vehicles from api', () => {
+        return request.get('/api/characters?page=1')
+            .then( ({body}) => {
+                console.log(body);
+                assert.ok(body[0].name);
             });
     });
+
 });
