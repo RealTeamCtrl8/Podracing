@@ -19,16 +19,25 @@ describe('Characters test', () => {
             .send(newUser)
             .then( ({body}) => {
                 userToken = body.token;
-                console.log(userToken);
             });
     });
 
-    it.only('should retrieve all characters from api when requested from authorized user', () => {
+    it('should retrieve all characters from api when requested from authorized user', () => {
         return request.get('/api/characters')
             .set('Authorization', userToken)
             .then( ({body}) => {
-                console.log(body);
                 assert.ok(body[0].name);
+            });
+    });
+
+    it.only('should reject attempt to get all characters from unauthorized user token', () => {
+        return request.get('/api/characters')
+            .set('Authorization', 'badtoken6666')
+            .then( () => {
+                throw new Error ('unexpected success');
+            })
+            .catch( err =>{
+                assert.equal(err.message, 'Unauthorized');
             });
     });
 
