@@ -13,6 +13,7 @@ describe('Characters test', () => {
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello'
         };
+    });
 
 
     it('should retrieve all characters from api', function()  {
