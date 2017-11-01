@@ -10,8 +10,7 @@ describe('Vehicles test', () => {
         return request
             .get('/api/vehicles/')
             .then(({body}) => {
-                assert.isArray(body);
-                assert.ok(body[1].name);
+                assert.equal(body.length, 39);
             });
     });
 });
