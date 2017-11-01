@@ -1,5 +1,6 @@
+require('dotenv').config();
 const connect = require('../../lib/connect');
-const url = 'mongodb://localhost:27017/starwars-test';
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/starwars';
 const mongoose = require('mongoose');
 
 before (() => connect(url));
