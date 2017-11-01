@@ -4,35 +4,32 @@ const db = require('./db');
 
 describe('Races test', () => {
     beforeEach(() => db.drop());
-    let hothRace = null;
-    let planet = null;
 
-
-    
-    const hoth = {
-        planet: 'hoth'
+    let planet = {
+        name: 'hoth',
     };
-
-    beforeEach(() =>{
-        return request.post('/api/planets')
-            .send(hoth)
-            .then(res => planet = res.body);
-    });
-
+    let hothRace = null;
+    
     beforeEach(() => {
-        hothRace = {
-            planet: planet._id,
-            endTime: new Date
-        };
-        return request.post('/api/races')
-            .send(hothRace)
-            .then(res => hothRace = res.body);
+        return request.post('/api/planets')
+            .send(planet)
+            .then(res => {
+                planet = res.body;
+                hothRace = {
+                    planet: planet._id,
+                    endTime: new Date
+                };
+            });
     });
-
+    
+    
 
     it.only('Posts a race to the api', () => {
         return request.post('/api/races')
-            .send(hothRace)
+            .send({
+                planet: planet._id,
+                endTime: new Date
+            })
             .then(res => {
                 const race = res.body;
                 assert.ok(race._id);
