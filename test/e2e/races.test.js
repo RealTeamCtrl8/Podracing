@@ -9,7 +9,8 @@ describe('Races test', () => {
         name: 'hoth',
     };
     let hothRace = null;
-    
+    let hothRace2 = null;
+
     beforeEach(() => {
         return request.post('/api/planets')
             .send(planet)
@@ -19,10 +20,12 @@ describe('Races test', () => {
                     planet: planet._id,
                     endTime: new Date
                 };
+                hothRace2 = {
+                    planet: planet._id,
+                    endTime: new Date
+                };
             });
-    });
-    
-    
+    });    
 
     it.only('Posts a race to the api', () => {
         return request.post('/api/races')
@@ -37,11 +40,28 @@ describe('Races test', () => {
             });
     });
 
-    it.skip('should retrieve all Races from api', () => {
-        return request.get('/api/races')
-        //todo: rewrite differently
-            .then(({ body }) => {
-                assert.ok(body[0].name);
+    it.only('should retrieve all Races from api', () => {
+        const saves = [hothRace, hothRace2].map(race => {
+            return request.post('/api/races')
+                .send(race)
+                .then(res => res.body);
+        });
+        let saved = null;
+        let savedRaces = null;
+        return Promise.all(saves)
+            .then(_saved => {
+                saved = _saved;
+                savedRaces = saved.map( save => {
+                    return{
+                        planet: save.planet,
+                        endTime: save.endTime
+                    };
+                });
+                return request.get('/api/races');
+            })
+            .then(res =>{
+                assert.equal(res.body.endTime, savedRaces.endTime);
+                assert.equal(res.body.planet, savedRaces.planet);
             });
     });
 
