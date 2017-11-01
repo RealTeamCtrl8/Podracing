@@ -24,5 +24,11 @@ function schedulePlaceholder(){
     console.log('adding new races');
 }
 
-setInterval(checkPlaceholder, 1000);
-setInterval(schedulePlaceholder, 5000);
+const checkRaces = setInterval(checkPlaceholder, 1000);
+const scheduleRaces = setInterval(schedulePlaceholder, 5000);
+
+process.on('SIGINT', () => {
+    console.log('switching off timers...');
+    clearInterval(checkRaces);
+    clearInterval(scheduleRaces);
+});
