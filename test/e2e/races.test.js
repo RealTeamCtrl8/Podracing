@@ -65,10 +65,4 @@ describe('Races test', () => {
             });
     });
 
-    it.skip('Checks the raceScheduler function', () => {
-        //todo: write raceScheduler
-
-    });
-
-
 });
