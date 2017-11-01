@@ -2,9 +2,11 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 
-let newUser = null;
-let userToken = null;
 describe('Characters test', () => {
+    
+    let newUser = null;
+    let userToken = null;
+
     beforeEach(()=> {
         db.drop();
 
@@ -13,11 +15,7 @@ describe('Characters test', () => {
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello'
         };
-    });
-
-
-    it('should retrieve all characters from api', function()  {
-        this.timeout(15000);
+        
         return request
             .post('/api/auth/signup')
             .send(newUser)
@@ -26,7 +24,8 @@ describe('Characters test', () => {
             });
     });
 
-    it('should retrieve all characters from api when requested from authorized user', () => {
+    it('should retrieve all characters from api when requested from authorized user', function() {
+        this.timeout(15000);
         return request.get('/api/characters')
             .set('Authorization', userToken)
             .then( ({body}) => {
