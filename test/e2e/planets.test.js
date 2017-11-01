@@ -10,7 +10,7 @@ describe('Planets test', () => {
         return request 
             .get('/api/planets/')
             .then(({body}) => {
-                assert.ok(body[0]);
+                assert.equal(body.length, 61);
             });
     });
 });
