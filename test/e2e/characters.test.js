@@ -1,13 +1,15 @@
 const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
+const seedCharacters = require('../../lib/scripts/seed-characters');
 
 describe('Characters test', () => {
     
     let newUser = null;
     let userToken = null;
 
-    beforeEach(()=> {
+    beforeEach(function () {
+        this.timeout(10000);
         db.drop();
 
         newUser = {
@@ -21,6 +23,7 @@ describe('Characters test', () => {
             .send(newUser)
             .then( ({body}) => {
                 userToken = body.token;
+                return seedCharacters();
             });
     });
 
