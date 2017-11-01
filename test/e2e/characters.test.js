@@ -24,13 +24,12 @@ describe('Characters test', () => {
             });
     });
 
-    it('should retrieve all characters from api when requested from authorized user', function() {
+    it.only('should retrieve all characters from api when requested from authorized user', function() {
         this.timeout(15000);
         return request.get('/api/characters')
             .set('Authorization', userToken)
             .then( ({body}) => {
-                assert.isArray(body);
-                assert.ok(body[1].name);
+                assert.equal(body.length, 87);
             });
     });
 
