@@ -66,20 +66,18 @@ describe('Races test', () => {
     });
 
     it.only('gets a race by id', () => {
-        request.post('/api/races')
-            .send({
-                planet: planet._id,
-                endTime: new Date
-            })
+        let savedRace = null
+        return request.post('/api/races')
+            .send(hothRace)
             .then(res => {
-                const race = res.body;
-            });
-
-
-        return request.get(`/api/races/${race._id}`)
-            .then(got =>{ 
-                console.log('========================', got.body);
-                assert.equal(got.body._id, planet._id);
+                savedRace = res.body;
+                
+                
+                return request.get(`/api/races/${race._id}`)
+                    .then(got =>{ 
+                        console.log('========================', got.body);
+                        assert.equal(got.body._id, planet._id);
+                    });
             });
     });
 
