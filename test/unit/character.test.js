@@ -1,7 +1,7 @@
 const {assert} = require('chai');
 const Character = require('../../lib/models/character');
 
-describe.only('Character Model', () => {
+describe('Character Model', () => {
     const character = new Character ({
         name: 'Hans Solo'
     });

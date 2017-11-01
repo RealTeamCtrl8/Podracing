@@ -1,7 +1,7 @@
 const {assert} = require('chai');
 const Event = require('../../lib/models/event');
 
-describe('Event model', () => {
+describe.skip('Event model', () => {
     const event = new Event({
 
     });
