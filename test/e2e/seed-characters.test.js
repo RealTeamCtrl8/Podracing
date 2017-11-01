@@ -3,7 +3,7 @@ const seedCharacters = require('../../lib/scripts/seed-characters');
 const db = require('./db');
 const Character = require('../../lib/models/character');
 
-describe.only('Seed Characters test', () => {
+describe('Seed Characters test', () => {
 
     before(()=> {
         db.drop();
