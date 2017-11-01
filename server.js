@@ -20,7 +20,7 @@ function checkPlaceholder(){
 }
 
 function schedulePlaceholder(){
-    //populate race db with new race instances
+    //Populate race db with new race instances
     console.log('adding new races');
 }
 
