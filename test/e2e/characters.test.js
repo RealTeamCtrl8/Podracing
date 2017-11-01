@@ -2,6 +2,7 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
+const Character = require('../../lib/models/character');
 
 describe('Characters test', () => {
     
@@ -45,6 +46,14 @@ describe('Characters test', () => {
             .catch( err =>{
                 assert.equal(err.message, 'Unauthorized');
             });
+    });
+
+    it('should retrieve a single character by id', () => {
+        let sample = null;
+        return Character.findOne()
+            .then(found => sample = found.body)
+            .then(() => request.get(`/api/characters/id:${sample.id}`))
+            .then(got => assert.deepEqual(sample, got.body));
     });
 
 });
