@@ -24,7 +24,7 @@ describe('Characters test', () => {
             });
     });
 
-    it.only('should retrieve all characters from api when requested from authorized user', function() {
+    it('should retrieve all characters from api when requested from authorized user', function() {
         this.timeout(15000);
         return request.get('/api/characters')
             .set('Authorization', userToken)
