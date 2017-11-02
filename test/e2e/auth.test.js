@@ -3,7 +3,6 @@ const request = require('./request');
 const db = require('./db');
 
 
-//TODO: convert asyncs to oldschool promises (for consistency)
 describe('Auth test', () => {
     let userToken = null;
     let newUser = null;
