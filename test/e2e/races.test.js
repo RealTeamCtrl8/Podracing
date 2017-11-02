@@ -27,7 +27,7 @@ describe('Races test', () => {
             });
     });    
 
-    it.only('Posts a race to the api', () => {
+    it('Posts a race to the api', () => {
         return request.post('/api/races')
             .send({
                 planet: planet._id,
@@ -40,7 +40,7 @@ describe('Races test', () => {
             });
     });
 
-    it.only('should retrieve all Races from api', () => {
+    it('should retrieve all Races from api', () => {
         const saves = [hothRace, hothRace2].map(race => {
             return request.post('/api/races')
                 .send(race)
@@ -78,7 +78,7 @@ describe('Races test', () => {
             });
     });
 
-    it.only('Get by id returns a 404 for bad id', () => {
+    it('Get by id returns a 404 for bad id', () => {
         return request.get('/api/races/59dfeaeb083bf9badcc97ce8')
             .then(
                 () => { throw new Error('Incorrect id');},
