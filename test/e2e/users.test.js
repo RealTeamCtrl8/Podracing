@@ -29,7 +29,7 @@ describe('User Character test', () => {
             });
     });
 
-    it.only('should get a character by id and add to user property', () => {
+    it('should get a character by id and add to user property', () => {
         let sample = null;
         return Character.findOne().lean()
             .then(found => {
@@ -43,41 +43,34 @@ describe('User Character test', () => {
             });
     });
 
-    // it('should reject character putById when user already has character', () => {
-    //     //TODO: can this line be declared at the beginning of the file?
-    //     const tokenService = require('../../lib/utils/token');
-    //     const userWithCharacter = new User({
-    //         name: 'online_user_2422352',
-    //         email: '11_yr_old_hacker@gmail.com',
-    //         password: '123hello',
-    //         character: 'dumbledore'
-    //     });
+    it('should reject character putById when user already has character', () => {
+        const userWithCharacter = new User({
+            name: 'online_user_2422352',
+            email: '11_yr_old_hacker@gmail.com',
+            password: '123hello',
+            character: '59fa55bf389b3782d8cceac7'
+        });
 
-    //     //TODO: remove user token garbage
-    //     let sample = null;
-    //     let userId = null;
+        let userToken = null;
+        let sample = null;
 
-    //     return request
-    //         .post('/api/users/signup')
-    //         .send(userWithCharacter)
-    //         .then( ({body}) => {
-    //             userToken = body.token;
-    //             return tokenService.verify(userToken);
-    //         })
-    //         .then( got => {
-    //             userId = got.id;
-    //             return Character.findOne().lean();
-    //         })
-    //         .then(found => {
-    //             sample = found;
-    //         })
-    //         .then(() => request.get(`/api/users/getchar/${sample._id}`)
-    //             .set('Authorization', userToken)
-    //         )    
-    //         .then(
-    //             () => { throw new Error('unexpected success'); },
-    //             (err) => assert.equal(err.status, 400)
-    //         );
-    // });
-
+        return request
+            .post('/api/users/signup')
+            .send(userWithCharacter)
+            .then(({body}) => {
+                userToken = body.token;
+            })
+            .then(() => {
+                return Character.findOne().lean()
+                    .then(found => {
+                        sample = found;
+                    })
+                    .then(() => request.put(`/api/users/getchar/${sample._id}`)
+                        .set('Authorization', userToken)
+                    )    
+                    .catch(err => {
+                        assert.equal(err.status, 400);
+                    });
+            });    
+    });
 });

@@ -18,7 +18,5 @@ describe( 'User Model', () => {
         const {errors} = badUser.validateSync();
         assert.equal(errors.name.kind, 'required');
         assert.equal(errors.email.kind, 'required');
-        // TODO:  need .getAll method before validating this test
-        // assert.equal(errors.character.kind, '???');
     });
 });
