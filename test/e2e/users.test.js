@@ -29,7 +29,7 @@ describe('User Character test', () => {
             });
     });
 
-    it('should retrieve a single character by id', () => {
+    it.only('should get a character by id and add to user property', () => {
         let sample = null;
         return Character.findOne().lean()
             .then(found => {
@@ -43,7 +43,7 @@ describe('User Character test', () => {
             });
     });
 
-    it.only('should reject getById when user already has character', () => {
+    it('should reject character putById when user already has character', () => {
         //TODO: can this line be declared at the beginning of the file?
         const tokenService = require('../../lib/utils/token');
         const userWithCharacter = new User({
@@ -53,6 +53,7 @@ describe('User Character test', () => {
             character: 'dumbledore'
         });
 
+        //TODO: remove user token garbage
         let sample = null;
         let userId = null;
 
