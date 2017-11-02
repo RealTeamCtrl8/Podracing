@@ -1,7 +1,7 @@
 const {assert} = require('chai');
 const Planet = require('../../lib/models/planet');
 
-describe('Planet model', () => {
+describe.skip('Planet model', () => {
     const planet = new Planet({name: 'tawser'});
 
     it('should validate model', () => {
@@ -10,7 +10,7 @@ describe('Planet model', () => {
     });
 
     it('should reject a bad planet name', () => {
-        const badPlanet = new Planet({});
+        const badPlanet = new Planet({}); 
         const {errors} = badPlanet.validateSync();
         assert.equal(errors.name.kind,'required');
     });
