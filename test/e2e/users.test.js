@@ -106,6 +106,26 @@ describe('User routes test', () => {
                     assert.ok(got.body.vehicle);
                 });
         });
+       
+        it('should throw err if vehicle cost is gt bankroll', () => {
+            let sample = null;
+
+            return Vehicle.find().where('cost_in_credits').gt(30000).lean()
+                .then(found => {
+                    sample = found[0];
+                })
+                .then(() => request.put(`/api/users/getvehicle/${sample._id}`)
+                    .set('Authorization', userToken)
+                )    
+                .then(() => {
+                    throw new Error ('unexpected success');
+                })
+                .catch(err => {
+                    assert.equal(err.status, 400);
+                });
+        });
+
+        
     });
 
 
