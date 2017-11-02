@@ -1,7 +1,7 @@
 const { assert } = require('chai');
 const db = require('./db');
 const request = require('./request');
-// const schedule = require('../../lib/timers/create-race');
+// const createRace = require('../../lib/scripts/create-race');
 const Race = require('../../lib/models/race');
 
 describe.only('Create race test', () => {
@@ -11,7 +11,7 @@ describe.only('Create race test', () => {
     });
 
     const testRace = new Race({
-        planet: Alderaan,
+        planet:'59ef87b38e62d836e1c0ee42',
         users: '59ef87b38e62d836e1c0ee41',
         endTime: new Date(11 - 2 - 2017),
         active: true,
@@ -19,13 +19,13 @@ describe.only('Create race test', () => {
         winner: null
     });
 
-    it('should create races', () => {
+    it('should create  a new race', () => {
         return request.post('/api/races')
-            .send(schedule(testRace))
+            .send(testRace)
             .then(res => {
                 const race = res.body;
                 assert.ok(race._id);
-                assert.equal(race.users, testRace.users);
+                assert.equal(race.planet._id, testRace.planet._id);
             });
 
     });

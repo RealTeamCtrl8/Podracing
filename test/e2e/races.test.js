@@ -31,7 +31,7 @@ describe('Races test', () => {
             });
     });    
 
-    it('Posts a race to the api', () => {
+    it('posts a race to the api', () => {
         return request.post('/api/races')
             .send({
                 planet: planet._id,
@@ -70,7 +70,7 @@ describe('Races test', () => {
                 assert.equal(res.body.planet, savedRaces.planet);
             });
     });
-
+    //  TODO: change getById to put
     it('gets a race by id', () => {
         let race = null;
         return request.post('/api/races')
@@ -84,7 +84,7 @@ describe('Races test', () => {
             });
     });
 
-    it('Get by id returns a 404 for bad id', () => {
+    it('returns a 404 for bad id', () => {
         return request.get('/api/races/59dfeaeb083bf9badcc97ce8')
             .then(
                 () => { throw new Error('Incorrect id');},
