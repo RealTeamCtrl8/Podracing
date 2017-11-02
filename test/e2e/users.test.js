@@ -21,7 +21,7 @@ describe('User routes test', () => {
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello',
-            bankroll: 20000
+            bankroll: '20000'
         });
     
         return request
@@ -86,7 +86,7 @@ describe('User routes test', () => {
 
     });
 
-    describe('Vehicle route tests', () => {
+    describe.only('Vehicle route tests', () => {
         beforeEach( function()  {
             this.timeout(10000);
             return seedVehicles();
@@ -94,9 +94,10 @@ describe('User routes test', () => {
 
         it('should get a vehicle by id and add to user property if affordable', () => {
             let sample = null;
-            return Vehicle.findOne().lean()
+
+            return Vehicle.find('cost_in_credits < 20000').lean()
                 .then(found => {
-                    sample = found;
+                    sample = found[0];
                 })
                 .then(() => request.put(`/api/users/getvehicle/${sample._id}`)
                     .set('Authorization', userToken)
