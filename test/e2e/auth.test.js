@@ -22,7 +22,6 @@ describe('Auth test', () => {
             .send(newUser);
         
         userToken = body.token;
-
     });
 
     describe('signup tests', () => {
@@ -30,46 +29,39 @@ describe('Auth test', () => {
             assert.ok(userToken);
         });
 
-        it('should reject user with no password', async () => {
-            try {
-                const badUser = {
-                    name: 'bad',
-                    email: 'bad@bad.org'
-                };
-                await request
-                    .post('/api/users/signup')
-                    .send(badUser);
-                throw new Error ('unexpected success');
-            }
-            catch (err) {
-                assert.equal(err.status, 401);
-            } 
+        it('should reject user with no password', () => {
+            const badUser = {
+                name: 'bad',
+                email: 'bad@bad.org'
+            };
+            return request
+                .post('/api/users/signup')
+                .send(badUser)
+                .then(() => {throw new Error ('unexpected success');})
+                .catch( err => {
+                    assert.equal(err.status, 401);
+                }); 
         });
     });
 
     describe('Signin tests', () => {
-        it('should sign in with same account info', async () => {
-            const {body} = await request
+        // it('should sign in with same account info', async () => {
+        //     const {body} = await request
+        //         .post('/api/users/signin')
+        //         .send({
+        //             name: 'xXcYbEr_GoKu_666Xx',
+        //             password: '123hello'
+        //         })
+        //         .then(body => assert.ok(body.token));
+        // });
+
+        it('should return error with invalid password signin', () => {
+            newUser.password = 'bad';
+            return request
                 .post('/api/users/signin')
-                .send({
-                    name: 'xXcYbEr_GoKu_666Xx',
-                    password: '123hello'
-                });
-            assert.ok(body.token);
+                .send(newUser)
+                .then(() => {throw new Error('unexpected success');})
+                .catch(err => {assert.equal(err.status, 401);});
         });
-
-        it('should return error with invalid password signin', async () => {
-            try{
-                newUser.password = 'bad';
-                await request
-                    .post('/api/users/signin')
-                    .send(newUser);
-                throw new Error('unexpected success');
-            }
-            catch(err) {
-                assert.equal(err.status, 401);
-            }
-        });
-
     });
 });
