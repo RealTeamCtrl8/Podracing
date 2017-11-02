@@ -3,7 +3,7 @@ const Race = require('../../lib/models/race');
 
 
 
-describe.only('Race model', () => {
+describe('Race model', () => {
 
     it('should validate a good model', () => {
         const race = new Race({

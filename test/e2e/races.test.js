@@ -18,11 +18,13 @@ describe('Races test', () => {
                 planet = res.body;
                 hothRace = {
                     planet: planet._id,
-                    endTime: new Date
+                    endTime: new Date,
+                    active: true
                 };
                 hothRace2 = {
                     planet: planet._id,
-                    endTime: new Date
+                    endTime: new Date,
+                    active: true
                 };
             });
     });    
@@ -31,7 +33,8 @@ describe('Races test', () => {
         return request.post('/api/races')
             .send({
                 planet: planet._id,
-                endTime: new Date
+                endTime: new Date,
+                active: true
             })
             .then(res => {
                 const race = res.body;
