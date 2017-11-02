@@ -4,8 +4,7 @@ const app = require('./lib/app');
 const server = http.createServer(app);
 const connect = require('./lib/connect');
 
-const scheduler = require('./lib/timers/scheduler');
-
+const raceScheduler = require('./lib/timers/race-scheduler');
 const seedPlanets = require('./lib/scripts/seed-planets');
 const seedVehicles = require('./lib/scripts/seed-vehicles');
 const seedCharacters = require('./lib/scripts/seed-characters');
@@ -22,5 +21,4 @@ server.listen(port, () => {
     console.log('server is running', server.address().port);//eslint-disable-line
 });
 
-
-scheduler();
+raceScheduler();
