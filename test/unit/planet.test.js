@@ -1,7 +1,7 @@
 const {assert} = require('chai');
 const Planet = require('../../lib/models/planet');
 
-describe('Planet model', () => {
+describe.skip('Planet model', () => {
     const planet = new Planet({name: 'tawser'});
 
     it('should validate model', () => {
