@@ -28,7 +28,7 @@ describe('Vehicles test', () => {
             });
     });
 
-    it.only('should retrieve all vehicles from API', function() {
+    it('should retrieve all vehicles from API', function() {
         this.timeout(15000);
         return request
             .get('/api/vehicles/')
