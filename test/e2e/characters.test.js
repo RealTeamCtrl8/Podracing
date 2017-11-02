@@ -37,4 +37,15 @@ describe('Characters test', () => {
             });
     });
 
+    it('should reject attempt to get all characters from unauthorized user token', () => {
+        return request.get('/api/characters')
+            .set('Authorization', 'badtoken6666')
+            .then( () => {
+                throw new Error ('unexpected success');
+            })
+            .catch( err =>{
+                assert.equal(err.message, 'Unauthorized');
+            });
+    });
+
 });
