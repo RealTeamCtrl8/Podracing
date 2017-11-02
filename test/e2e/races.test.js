@@ -65,7 +65,7 @@ describe('Races test', () => {
             });
     });
 
-    it.only('gets a race by id', () => {
+    it('gets a race by id', () => {
         let race = null;
         return request.post('/api/races')
             .send(hothRace)
@@ -78,8 +78,12 @@ describe('Races test', () => {
             });
     });
 
-
-    it.skip('Get by id returns a 404 for bad id', () => {
-
+    it.only('Get by id returns a 404 for bad id', () => {
+        return request.get('/api/races/59dfeaeb083bf9badcc97ce8')
+            .then(
+                () => { throw new Error('Incorrect id');},
+                err => {
+                    assert.equal(err.status, 404);
+                });
     });
 });
