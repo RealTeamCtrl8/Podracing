@@ -48,12 +48,18 @@ describe('Characters test', () => {
             });
     });
 
-    it('should retrieve a single character by id', () => {
+    it.only('should retrieve a single character by id', () => {
         let sample = null;
         return Character.findOne()
-            .then(found => sample = found.body)
-            .then(() => request.get(`/api/characters/id:${sample.id}`))
-            .then(got => assert.deepEqual(sample, got.body));
+            .then(found => {
+                sample = found.toJSON();
+            })
+            .then(() => request.get(`/api/characters/${sample._id}`)
+                .set('Authorization', userToken)
+            )    
+            .then(got => {
+                assert.equal(sample.name, got.body.name);
+            });
     });
 
 });
