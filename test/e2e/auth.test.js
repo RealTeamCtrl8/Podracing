@@ -18,7 +18,7 @@ describe('Auth test', () => {
         };
 
         const { body } = await request
-            .post('/api/auth/signup')
+            .post('/api/users/signup')
             .send(newUser);
         
         userToken = body.token;
@@ -37,7 +37,7 @@ describe('Auth test', () => {
                     email: 'bad@bad.org'
                 };
                 await request
-                    .post('/api/auth/signup')
+                    .post('/api/users/signup')
                     .send(badUser);
                 throw new Error ('unexpected success');
             }
@@ -50,7 +50,7 @@ describe('Auth test', () => {
     describe('Signin tests', () => {
         it('should sign in with same account info', async () => {
             const {body} = await request
-                .post('/api/auth/signin')
+                .post('/api/users/signin')
                 .send({
                     name: 'xXcYbEr_GoKu_666Xx',
                     password: '123hello'
@@ -62,7 +62,7 @@ describe('Auth test', () => {
             try{
                 newUser.password = 'bad';
                 await request
-                    .post('/api/auth/signin')
+                    .post('/api/users/signin')
                     .send(newUser);
                 throw new Error('unexpected success');
             }

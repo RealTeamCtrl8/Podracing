@@ -15,9 +15,11 @@ connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/starwars');
 // const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 3000;
+
 seedPlanets();
 seedVehicles();
 seedCharacters();
+
 server.listen(port, () => {
     console.log('server is running', server.address().port);//eslint-disable-line
 });
