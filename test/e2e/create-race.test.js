@@ -4,7 +4,7 @@ const seedPlanets = require('../../lib/scripts/seed-planets');
 const request = require('./request');
 const createRace = require('../../lib/scripts/create-race');
 
-describe.only('Create race test', () => {
+describe('Create race test', () => {
 
     beforeEach(() => {
         db.drop();

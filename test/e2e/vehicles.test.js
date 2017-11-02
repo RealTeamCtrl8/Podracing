@@ -2,7 +2,6 @@ const {assert} = require('chai');
 const request = require('./request');
 const db = require('./db');
 const seedVehicles = require('../../lib/scripts/seed-vehicles');
-const User = require('../../lib/models/user');
 
 
 describe('Vehicles test', () => {
@@ -13,11 +12,11 @@ describe('Vehicles test', () => {
         this.timeout(10000);
         db.drop();
 
-        newUser = new User({
+        newUser = {
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello'
-        });
+        };
         
         return request
             .post('/api/users/signup')
