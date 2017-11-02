@@ -2,8 +2,11 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
+const seedVehicles = require('../../lib/scripts/seed-vehicles');
 const Character = require('../../lib/models/character');
 const User = require('../../lib/models/user');
+const Vehicle = require('../../lib/models/vehicle');
+
 
 describe('User routes test', () => {
 
@@ -17,7 +20,8 @@ describe('User routes test', () => {
         newUser = new User({
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',
-            password: '123hello'
+            password: '123hello',
+            bankroll: 20000
         });
     
         return request
@@ -28,7 +32,7 @@ describe('User routes test', () => {
             });
     });
 
-    describe.only('Character route tests', () => {
+    describe('Character route tests', () => {
         beforeEach( function()  {
             this.timeout(10000);
             return seedCharacters();
@@ -80,6 +84,27 @@ describe('User routes test', () => {
         });
     
 
+    });
+
+    describe('Vehicle route tests', () => {
+        beforeEach( function()  {
+            this.timeout(10000);
+            return seedVehicles();
+        });
+
+        it('should get a vehicle by id and add to user property if affordable', () => {
+            let sample = null;
+            return Vehicle.findOne().lean()
+                .then(found => {
+                    sample = found;
+                })
+                .then(() => request.put(`/api/users/getvehicle/${sample._id}`)
+                    .set('Authorization', userToken)
+                )    
+                .then(got => {
+                    assert.ok(got.body.vehicle);
+                });
+        });
     });
 
 
