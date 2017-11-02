@@ -20,7 +20,7 @@ describe('Characters test', () => {
         });
         
         return request
-            .post('/api/auth/signup')
+            .post('/api/users/signup')
             .send(newUser)
             .then( ({body}) => {
                 userToken = body.token;
