@@ -4,7 +4,7 @@ const app = require('./lib/app');
 const server = http.createServer(app);
 const connect = require('./lib/connect');
 
-const scheduler = require('./lib/timers/scheduler');
+// const scheduler = require('./lib/scripts/scheduler');
 
 const seedPlanets = require('./lib/scripts/seed-planets');
 const seedVehicles = require('./lib/scripts/seed-vehicles');
@@ -25,4 +25,4 @@ server.listen(port, () => {
 });
 
 
-scheduler();
+// scheduler();

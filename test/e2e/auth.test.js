@@ -4,7 +4,7 @@ const db = require('./db');
 
 
 //TODO: convert asyncs to oldschool promises (for consistency)
-describe('Auth test', () => {
+describe.only('Auth test', () => {
     let userToken = null;
     let newUser = null;
     beforeEach( async () => {
