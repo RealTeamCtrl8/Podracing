@@ -1,8 +1,8 @@
 const { assert } = require('chai');
 const db = require('./db');
+const seedPlanets = require('../../lib/scripts/seed-planets');
 const request = require('./request');
-// const createRace = require('../../lib/scripts/create-race');
-const Race = require('../../lib/models/race');
+const createRace = require('../../lib/scripts/create-race');
 
 describe.only('Create race test', () => {
 
@@ -10,22 +10,34 @@ describe.only('Create race test', () => {
         db.drop();
     });
 
-    const testRace = new Race({
-        planet:'59ef87b38e62d836e1c0ee42',
-        users: '59ef87b38e62d836e1c0ee41',
-        endTime: new Date(11 - 2 - 2017),
-        active: true,
-        prize: 100,
-        winner: null
-    });
+    let planet = {
+        name: 'hoth',
+    };
+
+    beforeEach(() => {
+        return request.post('/api/planets')
+            .send(planet)
+            .then(res => {
+                planet = res.body;
+                return seedPlanets();
+            });
+    });    
+
 
     it('should create  a new race', () => {
-        return request.post('/api/races')
-            .send(testRace)
+        let savedRace = null;
+        return createRace()
+            .then( (newRace) =>{
+                savedRace = newRace;
+            }) 
+            .then( () =>{
+                return request.post('/api/races')
+                    .send(savedRace);
+            })
             .then(res => {
                 const race = res.body;
                 assert.ok(race._id);
-                assert.equal(race.planet._id, testRace.planet._id);
+                assert.equal(race._id, savedRace.id);
             });
 
     });
