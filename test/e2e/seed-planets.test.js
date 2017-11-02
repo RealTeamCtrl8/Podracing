@@ -3,7 +3,7 @@ const seedPlanets = require('../../lib/scripts/seed-planets');
 const db = require('./db');
 const Planet = require('../../lib/models/planet');
 
-describe('Seed Planets test', () => {
+describe.only('Seed Planets test', () => {
 
     before(() => {
         db.drop();

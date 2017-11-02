@@ -3,8 +3,9 @@ const request = require('./request');
 const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
 const Character = require('../../lib/models/character');
+const User = require('../../lib/models/user');
 
-describe('Characters test', () => {
+describe.only('Characters test', () => {
     
     let newUser = null;
     let userToken = null;
@@ -13,11 +14,11 @@ describe('Characters test', () => {
         this.timeout(10000);
         db.drop();
 
-        newUser = {
+        newUser = new User({
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello'
-        };
+        });
         
         return request
             .post('/api/auth/signup')
@@ -48,7 +49,7 @@ describe('Characters test', () => {
             });
     });
 
-    it.only('should retrieve a single character by id', () => {
+    it('should retrieve a single character by id', () => {
         let sample = null;
         return Character.findOne()
             .then(found => {
