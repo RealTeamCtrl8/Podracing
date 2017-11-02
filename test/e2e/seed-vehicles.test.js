@@ -3,7 +3,7 @@ const seedVehicles = require('../../lib/scripts/seed-vehicles');
 const db = require('./db');
 const Vehicle = require('../../lib/models/vehicle');
 
-describe.only('Seed Vehicles test', () => {
+describe('Seed Vehicles test', () => {
 
     before(() => {
         db.drop();

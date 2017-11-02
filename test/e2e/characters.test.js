@@ -51,15 +51,46 @@ describe.only('Characters test', () => {
 
     it('should retrieve a single character by id', () => {
         let sample = null;
-        return Character.findOne()
+        return Character.findOne().lean()
             .then(found => {
-                sample = found.toJSON();
+                sample = found;
             })
             .then(() => request.get(`/api/characters/${sample._id}`)
                 .set('Authorization', userToken)
             )    
             .then(got => {
                 assert.equal(sample.name, got.body.name);
+            });
+    });
+
+    it('should reject getById when user already has character', () => {
+        const userWithCharacter = new User({
+            name: 'online_user_2422352',
+            email: '11_yr_old_hacker@gmail.com',
+            password: '123hello',
+            character: 'dumbledore'
+        });
+        let sample = null;
+        return request
+            .post('/api/auth/signup')
+            .send(userWithCharacter)
+            .then( ({body}) => {
+                userToken = body.token;
+            })
+            .then( () => {
+                return Character.findOne().lean();
+            })
+            .then(found => {
+                sample = found;
+            })
+            .then(() => request.get(`/api/characters/${sample._id}`)
+                .set('Authorization', userToken)
+            )    
+            .then( () => {
+                throw new Error('unexpected success');
+            })
+            .catch( (err) => {
+                assert.equal(err.status, 400);
             });
     });
 
