@@ -86,7 +86,7 @@ describe('User routes test', () => {
 
     });
 
-    describe.only('Vehicle route tests', () => {
+    describe('Vehicle route tests', () => {
         beforeEach( function()  {
             this.timeout(10000);
             return seedVehicles();
