@@ -29,8 +29,7 @@ describe('Characters test', () => {
         return request.get('/api/characters')
             .set('Authorization', userToken)
             .then( ({body}) => {
-                assert.isArray(body);
-                assert.ok(body[1].name);
+                assert.equal(body.length, 87);
             });
     });
 
