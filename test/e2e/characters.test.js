@@ -1,26 +1,30 @@
 const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
+const seedCharacters = require('../../lib/scripts/seed-characters');
+const User = require('../../lib/models/user');
 
 describe('Characters test', () => {
     
     let newUser = null;
     let userToken = null;
 
-    beforeEach(()=> {
+    beforeEach(function () {
+        this.timeout(10000);
         db.drop();
 
-        newUser = {
+        newUser = new User({
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',
             password: '123hello'
-        };
+        });
         
         return request
-            .post('/api/auth/signup')
+            .post('/api/users/signup')
             .send(newUser)
             .then( ({body}) => {
                 userToken = body.token;
+                return seedCharacters();
             });
     });
 
