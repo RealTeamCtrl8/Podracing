@@ -95,7 +95,7 @@ describe('User routes test', () => {
         it('should get a vehicle by id and add to user property if affordable', () => {
             let sample = null;
 
-            return Vehicle.find('cost_in_credits < 20000').lean()
+            return Vehicle.find().where('cost_in_credits').lt(20000).lean()
                 .then(found => {
                     sample = found[0];
                 })
