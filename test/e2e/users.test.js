@@ -44,20 +44,27 @@ describe('User Character test', () => {
     });
 
     it.only('should reject getById when user already has character', () => {
+        //TODO: can this line be declared at the beginning of the file?
+        const tokenService = require('../../lib/utils/token');
         const userWithCharacter = new User({
             name: 'online_user_2422352',
             email: '11_yr_old_hacker@gmail.com',
             password: '123hello',
             character: 'dumbledore'
         });
+
         let sample = null;
+        let userId = null;
+
         return request
             .post('/api/users/signup')
             .send(userWithCharacter)
             .then( ({body}) => {
                 userToken = body.token;
+                return tokenService.verify(userToken);
             })
-            .then( () => {
+            .then( got => {
+                userId = got.id;
                 return Character.findOne().lean();
             })
             .then(found => {
