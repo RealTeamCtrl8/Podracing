@@ -10,7 +10,7 @@ describe('Planets test', () => {
         return planetSeed();
     });
 
-    it.only('should retrieve all planets from API', function() {
+    it('should retrieve all planets from API', function() {
         this.timeout(15000);
         return request 
             .get('/api/planets/')

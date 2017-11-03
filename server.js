@@ -11,8 +11,6 @@ const seedCharacters = require('./lib/scripts/seed-characters');
 
 connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/starwars');
 
-// const bodyParser = require('body-parser');
-
 const port = process.env.PORT || 3000;
 
 seedPlanets();
