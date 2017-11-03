@@ -3,8 +3,11 @@ const request = require('./request');
 const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
 const seedVehicles = require('../../lib/scripts/seed-vehicles');
+const seedPlanets = require('../../lib/scripts/seed-planets');
 const Character = require('../../lib/models/character');
 const Vehicle = require('../../lib/models/vehicle');
+const Race = require('../../lib/models/race');
+const createRace = require('../../lib/scripts/create-race');
 
 
 describe('User routes test', () => {
@@ -152,5 +155,47 @@ describe('User routes test', () => {
                     assert.equal(err.status, 400);
                 });
         }); 
+        describe('Join race routes', () => {
+            beforeEach( function()  {
+                this.timeout(60000);
+                return seedVehicles()
+                    .then(() => seedCharacters())
+                    .then(() => seedPlanets())
+                    .then(() => createRace());
+            });
+
+            it.only('should throw err for ineligible', () => {
+                const userWithoutCharacter = {
+                    name: 'online_user_2422352',
+                    email: '11_yr_old_hacker@gmail.com',
+                    password: '123hello',
+                    character: null,
+                };
+
+                let userToken = null;
+                let toJoin = null;
+
+                return createRace()
+                    .then( () => Race.findOne())
+                    .then( got => {
+                        toJoin = got;
+                    })
+                    .then( () =>{
+                        return request
+                            .post('/api/users/signup')
+                            .send(userWithoutCharacter);
+                    })
+                    .then(({body}) => {
+                        userToken = body.token;
+                    })
+                    .then( () => {
+                        return request.put(`/api/users/joinrace/${toJoin.id}`)
+                            .set('Authorization', userToken);
+                    })  
+                    .catch(err => {
+                        assert.equal(err.status, 400);
+                    }); 
+            });
+        });
     });
 });
