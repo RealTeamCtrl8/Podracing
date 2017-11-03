@@ -112,8 +112,6 @@ describe('User routes test', () => {
                         });
                 });
         });
-    
-
     });
 
     describe('Vehicle route tests', () => {
@@ -153,8 +151,6 @@ describe('User routes test', () => {
                 .catch(err => {
                     assert.equal(err.status, 400);
                 });
-        });
-
-        
+        }); 
     });
 });
