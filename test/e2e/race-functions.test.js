@@ -8,7 +8,7 @@ const Race = require('../../lib/models/race');
 const createExpiredRace = require('./scripts/create-expired-race');
 const createSingleUserRace = require('./scripts/create-single-user-race');
 
-describe.only('Race Functions test', () => {
+describe('Race Functions test', () => {
     
     beforeEach(() => {
         db.drop();
@@ -38,7 +38,7 @@ describe.only('Race Functions test', () => {
             });
     });
 
-    it('should finish all completed races', () => {
+    it.skip('should finish all completed races', () => {
         return createExpiredRace()
             .then( () => createExpiredRace())
             .then( () => createRace())
