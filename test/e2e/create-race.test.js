@@ -22,7 +22,7 @@ describe('Create race test', () => {
             });
     });
 
-    it.only('should create three new races', () => {
+    it('should create three new races', () => {
         return createRace()
             .then( () => createRace())
             .then( () => createRace())
