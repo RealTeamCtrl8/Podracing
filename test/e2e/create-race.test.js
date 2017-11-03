@@ -10,21 +10,11 @@ describe('Create race test', () => {
         db.drop();
     });
 
-    let planet = {
-        name: 'hoth',
-    };
-
     beforeEach(() => {
-        return request.post('/api/planets')
-            .send(planet)
-            .then(res => {
-                planet = res.body;
-                return seedPlanets();
-            });
+        return seedPlanets();
     });    
 
-
-    it('should create  a new race', () => {
+    it('should create a new race', () => {
         let savedRace = null;
         return createRace()
             .then( (newRace) =>{

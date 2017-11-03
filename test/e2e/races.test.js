@@ -62,7 +62,7 @@ describe('Races test', () => {
     });
 
     //  TODO: change getById to put
-    it.skip('gets a race by id', () => {
+    it('gets a race by id', () => {
         let race = null;
         return request.put('/api/races')
             .send(hothRace)
