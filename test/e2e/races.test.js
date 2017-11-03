@@ -18,7 +18,7 @@ describe('Races test', () => {
                 planet = res.body;
                 hothRace = {
                     planet: planet._id,
-                    endTime: Date.parse(new Date),
+                    endTime: Date.parse(new Date)+1000,
                     active: true,
                     prize: 1234
                 };
@@ -57,7 +57,7 @@ describe('Races test', () => {
                 return request.get('/api/races');
             })
             .then( got => {
-                assert.equal(got.body.length, 2);
+                assert.equal(got.body.length, 1);
             });
     });
 
