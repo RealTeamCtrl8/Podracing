@@ -8,6 +8,9 @@ module.exports = function () {
     
     let enemy = { name: 'Your rival', email: 'finalboss@aol.com', bankroll: 0 };
 
+    let date = new Date();
+    date.setSeconds(date.getSeconds() - 1000);
+
     return new User(enemy).save()
         .then( (got) => {
             enemy = got;
@@ -19,7 +22,7 @@ module.exports = function () {
             const randomNumber = (Math.floor(Math.random() * (10000 - 100 +1)) +100)*12;
             const newRace = {
                 planet: myPlanet[0]._id,
-                endTime: Date.parse(new Date) - 1000,
+                endTime: date,
                 active: true,
                 distance: randomNumber,
                 prize: randomNumber / 6,
