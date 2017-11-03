@@ -47,7 +47,6 @@ describe('Races test', () => {
     });
 
     it('should retrieve all Races from api, filtering by end date > current date', () => {
-        // db.drop();
         return request.post('/api/races')
             .send(hothRace)
             .then( () => {
