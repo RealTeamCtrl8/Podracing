@@ -3,7 +3,6 @@ const request = require('./request');
 const db = require('./db');
 const seedVehicles = require('../../lib/scripts/seed-vehicles');
 
-
 describe('Vehicles test', () => {
     let newUser = null;
     let userToken = null;
