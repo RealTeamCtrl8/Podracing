@@ -81,6 +81,37 @@ describe('User routes test', () => {
                         });
                 });    
         });
+        
+        it('should turn the user character property to null', () => {
+            const userWithCharacter = {
+                name: 'online_user_2422352',
+                email: '11_yr_old_hacker@gmail.com',
+                password: '123hello',
+                character: '59fa55bf389b3782d8cceac7'
+            };
+
+            let userToken = null;
+            let sample = null;
+
+            return request
+                .post('/api/users/signup')
+                .send(userWithCharacter)
+                .then(({body}) => {
+                    userToken = body.token;
+                })
+                .then(() => {
+                    return Character.findOne().lean()
+                        .then(found => {
+                            sample = found;
+                        })
+                        .then(() => request.put(`/api/users/clearchar/${sample._id}`)
+                            .set('Authorization', userToken)
+                        )    
+                        .then(got => {
+                            assert.equal(got.body.character, null);
+                        });
+                });
+        });
     
 
     });
