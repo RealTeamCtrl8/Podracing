@@ -4,14 +4,12 @@ const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
 const seedVehicles = require('../../lib/scripts/seed-vehicles');
 const seedPlanets = require('../../lib/scripts/seed-planets');
+const createRace = require('../../lib/scripts/create-race');
 const Character = require('../../lib/models/character');
 const Vehicle = require('../../lib/models/vehicle');
 const Race = require('../../lib/models/race');
-const createRace = require('../../lib/scripts/create-race');
-
 
 describe('User routes test', () => {
-
     let newUser = null;
     let userToken = null;
 
@@ -155,6 +153,7 @@ describe('User routes test', () => {
                     assert.equal(err.status, 400);
                 });
         }); 
+
         describe('Join race routes', () => {
             beforeEach( function()  {
                 this.timeout(60000);
@@ -197,7 +196,6 @@ describe('User routes test', () => {
                     }); 
             });
 
-
             it('should allow user to join a race', () => {
                 let toJoin = null;
 
@@ -213,8 +211,6 @@ describe('User routes test', () => {
                         assert.equal(got.users.length, 2);
                     });
             });
-
-
         });
     });
 });

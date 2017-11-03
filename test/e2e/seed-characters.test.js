@@ -4,7 +4,6 @@ const db = require('./db');
 const Character = require('../../lib/models/character');
 
 describe('Seed Characters test', () => {
-
     before(()=> {
         db.drop();
     });

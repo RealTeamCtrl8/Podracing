@@ -51,6 +51,4 @@ describe('Race Functions test', () => {
                 assert.isAtLeast(got.length, 2);
             });
     });
-
-
 });

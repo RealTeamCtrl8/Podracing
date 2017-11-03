@@ -2,10 +2,7 @@ const Race = require('../../../lib/models/race');
 const Planet = require('../../../lib/models/planet');
 const User = require('../../../lib/models/user');
 
-//TODO: move this to test folder. update all require urls
-module.exports = function () {
-    
-    
+module.exports = function () {    
     let enemy = { name: 'Your rival', email: 'finalboss@aol.com', bankroll: 0 };
 
     let date = new Date();
@@ -29,8 +26,5 @@ module.exports = function () {
                 users: [enemy]
             };
             return new Race(newRace).save();
-        })
-        .catch(err => {
-            console.log(err);
         });
 };

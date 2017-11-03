@@ -4,7 +4,6 @@ const db = require('./db');
 const Planet = require('../../lib/models/planet');
 
 describe('Seed Planets test', () => {
-
     before(() => {
         db.drop();
     });

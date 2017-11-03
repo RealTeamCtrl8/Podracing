@@ -4,7 +4,6 @@ const db = require('./db');
 const Vehicle = require('../../lib/models/vehicle');
 
 describe('Seed Vehicles test', () => {
-
     before(() => {
         db.drop();
     });

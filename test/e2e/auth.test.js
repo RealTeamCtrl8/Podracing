@@ -2,14 +2,12 @@ const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
 
-
 describe('Auth test', () => {
     let userToken = null;
     let newUser = null;
     beforeEach(db.drop);
 
     beforeEach(() => {
-
         newUser = {
             name: 'xXcYbEr_GoKu_666Xx',
             email: '10_yr_old_hacker@gmail.com',

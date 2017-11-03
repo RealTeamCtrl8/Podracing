@@ -4,7 +4,6 @@ const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
 
 describe('Characters test', () => {
-    
     let newUser = null;
     let userToken = null;
 
@@ -46,5 +45,4 @@ describe('Characters test', () => {
                 assert.equal(err.message, 'Unauthorized');
             });
     });
-
 });
