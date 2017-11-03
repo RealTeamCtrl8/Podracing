@@ -3,9 +3,12 @@ const db = require('./db');
 const seedPlanets = require('../../lib/scripts/seed-planets');
 const request = require('./request');
 const createRace = require('../../lib/scripts/create-race');
+const createExpiredRace = require('../../lib/scripts/create-expired-race');
+const finishRaces = require('../../lib/scripts/finish-races');
 
-describe('Create race test', () => {
 
+describe('Race Functions test', () => {
+    
     beforeEach(() => {
         db.drop();
     });
@@ -33,4 +36,19 @@ describe('Create race test', () => {
                 assert.equal(got.body.length, 3);
             });
     });
+
+    it('should finish all completed races', () => {
+        return createExpiredRace()
+            .then( () => createExpiredRace())
+            .then( () => createRace())
+            .then( () => createRace())
+            .then( () => finishRaces())
+            .then( () => request.get('/api/races/'))
+            .then( got => {
+                assert.equal(got.body[0].active, true);
+                assert.equal(got.body.length, 2);
+            });
+    });
+
+
 });
