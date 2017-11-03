@@ -164,7 +164,7 @@ describe('User routes test', () => {
                     .then(() => createRace());
             });
 
-            it.only('should throw err for ineligible', () => {
+            it('should throw err for ineligible', () => {
                 const userWithoutCharacter = {
                     name: 'online_user_2422352',
                     email: '11_yr_old_hacker@gmail.com',

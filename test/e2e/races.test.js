@@ -9,7 +9,6 @@ describe('Races test', () => {
         name: 'hoth',
     };
     let hothRace = null;
-    let hothRace2 = null;
 
     beforeEach(() => {
         return request.post('/api/planets')
@@ -21,12 +20,6 @@ describe('Races test', () => {
                     endTime: Date.parse(new Date)+1000,
                     active: true,
                     prize: 1234
-                };
-                hothRace2 = {
-                    planet: planet._id,
-                    endTime: Date.parse(new Date),
-                    active: true,
-                    prize: 5432
                 };
             });
     });    
@@ -43,21 +36,6 @@ describe('Races test', () => {
                 const race = res.body;
                 assert.ok(race._id);
                 assert.equal(race.planet, hothRace.planet);
-            });
-    });
-
-    it('should retrieve all Races from api, filtering by end date > current date', () => {
-        return request.post('/api/races')
-            .send(hothRace)
-            .then( () => {
-                return request.post('/api/races')
-                    .send(hothRace2); 
-            })
-            .then( () => {
-                return request.get('/api/races');
-            })
-            .then( got => {
-                assert.equal(got.body.length, 1);
             });
     });
 
