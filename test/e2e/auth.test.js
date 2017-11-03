@@ -6,9 +6,9 @@ const db = require('./db');
 describe('Auth test', () => {
     let userToken = null;
     let newUser = null;
-    beforeEach( async () => {
-        
-        db.drop();
+    beforeEach(db.drop);
+
+    beforeEach(() => {
 
         newUser = {
             name: 'xXcYbEr_GoKu_666Xx',
@@ -16,11 +16,12 @@ describe('Auth test', () => {
             password: '123hello'
         };
 
-        const { body } = await request
+        return request
             .post('/api/users/signup')
-            .send(newUser);
-        
-        userToken = body.token;
+            .send(newUser)
+            .then(({body}) => {
+                userToken = body.token;
+            });  
     });
 
     describe('signup tests', () => {
@@ -44,15 +45,15 @@ describe('Auth test', () => {
     });
 
     describe('Signin tests', () => {
-        // it('should sign in with same account info', async () => {
-        //     const {body} = await request
-        //         .post('/api/users/signin')
-        //         .send({
-        //             name: 'xXcYbEr_GoKu_666Xx',
-        //             password: '123hello'
-        //         })
-        //         .then(body => assert.ok(body.token));
-        // });
+        it('should sign in with same account info', () => {
+            return request
+                .post('/api/users/signin')
+                .send({
+                    name: 'xXcYbEr_GoKu_666Xx',
+                    password: '123hello'
+                })
+                .then(({body}) => assert.ok(body.token));
+        });
 
         it('should return error with invalid password signin', () => {
             newUser.password = 'bad';
