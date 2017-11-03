@@ -3,7 +3,6 @@ const request = require('./request');
 const db = require('./db');
 const seedCharacters = require('../../lib/scripts/seed-characters');
 
-
 describe('Characters test', () => {
     
     let newUser = null;
