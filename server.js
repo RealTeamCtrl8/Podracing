@@ -3,7 +3,7 @@ const http = require('http');
 const app = require('./lib/app');
 const server = http.createServer(app);
 const connect = require('./lib/connect');
-const raceScheduler = require('./lib/timers/race-scheduler');
+const raceScheduler = require('./lib/scripts/race-scheduler');
 
 const seedPlanets = require('./lib/scripts/seed-planets');
 const seedVehicles = require('./lib/scripts/seed-vehicles');
