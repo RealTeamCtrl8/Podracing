@@ -196,6 +196,25 @@ describe('User routes test', () => {
                         assert.equal(err.status, 400);
                     }); 
             });
+
+
+            it('should allow user to join a race', () => {
+                let toJoin = null;
+
+                return createRace()
+                    .then( () => Race.findOne())
+                    .then( got => {
+                        toJoin = got;
+                        return request.put(`/api/users/joinrace/${toJoin.id}`)
+                            .set('Authorization', userToken);
+                    })
+                    .then( () =>  Race.findById(toJoin.id))
+                    .then( got => {
+                        assert.equal(got.users.length, 2);
+                    });
+            });
+
+
         });
     });
 });
