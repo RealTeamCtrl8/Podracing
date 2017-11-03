@@ -10,35 +10,27 @@ describe('Create race test', () => {
         db.drop();
     });
 
-    let planet = {
-        name: 'hoth',
-    };
-
-    beforeEach(() => {
-        return request.post('/api/planets')
-            .send(planet)
-            .then(res => {
-                planet = res.body;
-                return seedPlanets();
-            });
+    beforeEach( function () {
+        this.timeout(10000);
+        return seedPlanets();
     });    
 
-
-    it('should create  a new race', () => {
-        let savedRace = null;
+    it('should create a new race', () => {
         return createRace()
-            .then( (newRace) =>{
-                savedRace = newRace;
-            }) 
-            .then( () =>{
-                return request.post('/api/races')
-                    .send(savedRace);
-            })
             .then(res => {
-                const race = res.body;
-                assert.ok(race._id);
-                assert.equal(race._id, savedRace.id);
+                assert.ok(res.id);
             });
+    });
 
+    it.only('should create three new races', () => {
+        return createRace()
+            .then( () => createRace())
+            .then( () => createRace())
+            .then( () => {
+                return request.get('/api/races');
+            })
+            .then(got => {
+                assert.equal(got.body.length, 3);
+            });
     });
 });

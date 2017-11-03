@@ -9,7 +9,7 @@ describe('Race model', () => {
         const race = new Race({
             planet: '59ef87b38e62d836e1c0ee48',
             user: ['59ef87b38e62d836e1c0ee41', '59ef87b38e62d836e1c0ff41'],
-            endTime: new Date,
+            endTime: Date.parse(new Date),
             active: true,
             prize: 1234,
             winner: '59ef87b38e62d836e1c0ee41'

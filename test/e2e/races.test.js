@@ -18,15 +18,15 @@ describe('Races test', () => {
                 planet = res.body;
                 hothRace = {
                     planet: planet._id,
-                    endTime: new Date,
+                    endTime: Date.parse(new Date)+1000,
                     active: true,
                     prize: 1234
                 };
                 hothRace2 = {
                     planet: planet._id,
-                    endTime: new Date,
+                    endTime: Date.parse(new Date),
                     active: true,
-                    prize: 1234
+                    prize: 5432
                 };
             });
     });    
@@ -35,7 +35,7 @@ describe('Races test', () => {
         return request.post('/api/races')
             .send({
                 planet: planet._id,
-                endTime: new Date,
+                endTime: Date.parse(new Date),
                 active: true,
                 prize: 1234
             })
@@ -46,31 +46,22 @@ describe('Races test', () => {
             });
     });
 
-    it('should retrieve all Races from api', () => {
-        const saves = [hothRace, hothRace2].map(race => {
-            return request.post('/api/races')
-                .send(race)
-                .then(res => res.body);
-        });
-        let saved = null;
-        let savedRaces = null;
-        return Promise.all(saves)
-            .then(_saved => {
-                saved = _saved;
-                savedRaces = saved.map( save => {
-                    return{
-                        planet: save.planet,
-                        endTime: save.endTime
-                    };
-                });
+    it('should retrieve all Races from api, filtering by end date > current date', () => {
+        return request.post('/api/races')
+            .send(hothRace)
+            .then( () => {
+                return request.post('/api/races')
+                    .send(hothRace2); 
+            })
+            .then( () => {
                 return request.get('/api/races');
             })
-            .then(res =>{
-                assert.equal(res.body.endTime, savedRaces.endTime);
-                assert.equal(res.body.planet, savedRaces.planet);
+            .then( got => {
+                assert.equal(got.body.length, 1);
             });
     });
-    //  TODO: change getById to put
+
+    //  TODO: change getById to put, move to user routes
     it.skip('gets a race by id', () => {
         let race = null;
         return request.put('/api/races')
