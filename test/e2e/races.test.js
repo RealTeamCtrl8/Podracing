@@ -18,13 +18,13 @@ describe('Races test', () => {
                 planet = res.body;
                 hothRace = {
                     planet: planet._id,
-                    endTime: new Date,
+                    endTime: Date.parse(new Date),
                     active: true,
                     prize: 1234
                 };
                 hothRace2 = {
                     planet: planet._id,
-                    endTime: new Date,
+                    endTime: Date.parse(new Date),
                     active: true,
                     prize: 5432
                 };
