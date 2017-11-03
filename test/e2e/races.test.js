@@ -39,20 +39,6 @@ describe('Races test', () => {
             });
     });
 
-    //  TODO: change getById to put, move to user routes
-    it.skip('gets a race by id', () => {
-        let race = null;
-        return request.put('/api/races')
-            .send(hothRace)
-            .then(res => {
-                race = res.body;
-                return request.get(`/api/races/${race._id}`);
-            })
-            .then(res => {
-                assert.equal(res.body._id, race._id);
-            });
-    });
-
     it('returns a 404 for bad id', () => {
         return request.get('/api/races/59dfeaeb083bf9badcc97ce8')
             .then(
