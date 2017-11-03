@@ -73,7 +73,7 @@ describe('Races test', () => {
 
     it('gets a race by id', () => {
         let race = null;
-        return request.post('/api/races')
+        return request.put('/api/races')
             .send(hothRace)
             .then(res => {
                 race = res.body;
