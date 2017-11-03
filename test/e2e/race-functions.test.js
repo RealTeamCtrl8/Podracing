@@ -3,11 +3,12 @@ const db = require('./db');
 const seedPlanets = require('../../lib/scripts/seed-planets');
 const request = require('./request');
 const createRace = require('../../lib/scripts/create-race');
-const createExpiredRace = require('../../lib/scripts/create-expired-race');
 const finishRaces = require('../../lib/scripts/finish-races');
+const Race = require('../../lib/models/race');
+const createExpiredRace = require('./scripts/create-expired-race');
+const createSingleUserRace = require('./scripts/create-single-user-race');
 
-
-describe('Race Functions test', () => {
+describe.only('Race Functions test', () => {
     
     beforeEach(() => {
         db.drop();
@@ -42,10 +43,11 @@ describe('Race Functions test', () => {
             .then( () => createExpiredRace())
             .then( () => createRace())
             .then( () => createRace())
+            .then( () => createSingleUserRace())
             .then( () => finishRaces())
-            .then( () => request.get('/api/races/'))
+            .then( () => Race.find().select('active').where('active').equals('false'))
             .then( got => {
-                assert.equal(got.body[0].active, true);
+                assert.equal(got.body[0].active, false);
                 assert.equal(got.body.length, 2);
             });
     });

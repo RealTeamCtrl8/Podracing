@@ -1,6 +1,6 @@
-const Race = require('../models/race');
-const Planet = require('../models/planet');
-const User = require('../models/user');
+const Race = require('../../../lib/models/race');
+const Planet = require('../../../lib/models/planet');
+const User = require('../../../lib/models/user');
 
 //TODO: move this to test folder. update all require urls
 module.exports = function () {
