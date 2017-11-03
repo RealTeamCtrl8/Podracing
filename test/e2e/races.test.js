@@ -60,7 +60,7 @@ describe('Races test', () => {
                 assert.equal(got.body.length, 2);
             });
     });
-    
+
     //  TODO: change getById to put
     it.skip('gets a race by id', () => {
         let race = null;
