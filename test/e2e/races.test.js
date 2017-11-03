@@ -35,7 +35,7 @@ describe('Races test', () => {
         return request.post('/api/races')
             .send({
                 planet: planet._id,
-                endTime: new Date,
+                endTime: Date.parse(new Date),
                 active: true,
                 prize: 1234
             })
@@ -46,7 +46,7 @@ describe('Races test', () => {
             });
     });
 
-    it.only('should retrieve all Races from api', () => {
+    it('should retrieve all Races from api', () => {
         return request.post('/api/races')
             .send(hothRace)
             .then( () => {
@@ -61,8 +61,8 @@ describe('Races test', () => {
             });
     });
 
-    //  TODO: change getById to put
-    it('gets a race by id', () => {
+    //  TODO: change getById to put, move to user routes
+    it.skip('gets a race by id', () => {
         let race = null;
         return request.put('/api/races')
             .send(hothRace)
