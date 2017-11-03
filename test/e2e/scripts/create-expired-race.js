@@ -6,8 +6,8 @@ const User = require('../../../lib/models/user');
 module.exports = function () {
     
     
-    let enemy = { name: 'Your rival', email: 'finalboss@aol.com' };
-    let hero = { name: 'gyro', email: 'goodboy111@aol.com' };
+    let enemy = { name: 'Your rival', email: 'finalboss@aol.com', bankroll: 0 };
+    let hero = { name: 'gyro', email: 'goodboy111@aol.com', bankroll: 1000 };
 
     return new User(hero).save()
         .then( () => new User(enemy).save())

@@ -38,7 +38,7 @@ describe('Race Functions test', () => {
             });
     });
 
-    it.skip('should finish all completed races', () => {
+    it.only('should finish all completed races', () => {
         return createExpiredRace()
             .then( () => createExpiredRace())
             .then( () => createRace())
