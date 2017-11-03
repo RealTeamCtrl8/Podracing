@@ -4,8 +4,9 @@ const db = require('./db');
 const planetSeed = require('../../lib/scripts/seed-planets');
 
 describe('Planets test', () => {
-    beforeEach(() => {
+    beforeEach(function () {
         db.drop();
+        this.timeout(15000);
         return planetSeed();
     });
 
