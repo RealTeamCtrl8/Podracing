@@ -1,20 +1,38 @@
 const { assert } = require('chai');
 const request = require('./request');
 const db = require('./db');
+const seedPlanets = require('../../lib/scripts/seed-planets');
+const Planet = require('../../lib/models/planet');
 
 describe('Races test', () => {
     beforeEach(() => db.drop());
 
-    let planet = {
-        name: 'hoth',
-    };
+    let newUser = null;
+    let userToken = null;
+    let planet = null;
     let hothRace = null;
 
     beforeEach(() => {
-        return request.post('/api/planets')
-            .send(planet)
-            .then(res => {
-                planet = res.body;
+        newUser = {
+            name: 'xXcYbEr_GoKu_666Xx',
+            email: '10_yr_old_hacker@gmail.com',
+            password: '123hello'
+        };
+
+        return request
+            .post('/api/users/signup')
+            .send(newUser)
+            .then(({ body }) => {
+                userToken = body.token;
+            })
+            .then( () =>{
+                return seedPlanets();
+            })
+            .then( () =>{
+                return Planet.findOne();
+            })
+            .then( found =>{
+                planet = found;
                 hothRace = {
                     planet: planet._id,
                     endTime: Date.parse(new Date)+1000,
@@ -22,10 +40,11 @@ describe('Races test', () => {
                     prize: 1234
                 };
             });
-    });    
+    });
 
     it('posts a race to the api', () => {
         return request.post('/api/races')
+            .set('Authorization', userToken)
             .send({
                 planet: planet._id,
                 endTime: Date.parse(new Date),
