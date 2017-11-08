@@ -27,7 +27,6 @@ describe('Vehicles test', () => {
     });
 
     it('should retrieve all vehicles from API', function() {
-        this.timeout(15000);
         return request
             .get('/api/vehicles/')
             .set('Authorization', userToken)            

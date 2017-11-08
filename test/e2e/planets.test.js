@@ -3,6 +3,8 @@ const request = require('./request');
 const db = require('./db');
 const planetSeed = require('../../lib/scripts/seed-planets');
 
+// see characters.test.js, same applies here...
+
 describe('Planets test', () => {
     let userToken = null;
     let newUser = null;

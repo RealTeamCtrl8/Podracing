@@ -2,6 +2,8 @@ const Race = require('../../../lib/models/race');
 const Planet = require('../../../lib/models/planet');
 const User = require('../../../lib/models/user');
 
+// near identical to other create race test file.
+
 module.exports = function () {    
     let enemy = { name: 'Your rival', email: 'finalboss@aol.com', bankroll: 0 };
 
@@ -16,6 +18,7 @@ module.exports = function () {
             ]);
         })
         .then( myPlanet => {
+            // Don't repeat your code logic in the test. This does not need to be random as a dummy race
             const randomNumber = (Math.floor(Math.random() * (10000 - 100 +1)) +100)*12;
             const newRace = {
                 planet: myPlanet[0]._id,
