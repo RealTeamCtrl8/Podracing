@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 const db = require('./db');
-const seedPlanets = require('../../lib/scripts/seed-planets');
+const seed = require('../../lib/scripts/seed-data');
 const request = require('./request');
 const createRace = require('../../lib/scripts/create-race');
 const finishRaces = require('../../lib/scripts/finish-races');
@@ -16,7 +16,7 @@ describe('Race Functions test', () => {
 
     beforeEach( function () {
         this.timeout(10000);
-        return seedPlanets();
+        return seed.planets();
     });    
 
     it('should create a new race', () => {
@@ -39,16 +39,19 @@ describe('Race Functions test', () => {
     });
 
     it('should finish all completed races', () => {
-        return createExpiredRace()
-            .then( () => createExpiredRace())
-            .then( () => createRace())
-            .then( () => createRace())
-            .then( () => createSingleUserRace())
-            .then( () => finishRaces())
-            .then( () => Race.find())
-            .then( got => {
-                assert.isArray(got);
-                assert.isAtLeast(got.length, 2);
+    
+        return Promise.all([
+            createExpiredRace(),
+            createExpiredRace(),
+            createRace(),
+            createRace(),
+            createSingleUserRace()
+        ])
+            .then(() => finishRaces())
+            .then(() => Race.find())
+            .then(races => {
+                assert.isArray(races);
+                assert.isAtLeast(races.length, 2);
             });
     });
 });

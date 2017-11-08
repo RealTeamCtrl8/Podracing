@@ -2,6 +2,10 @@ const Race = require('../../../lib/models/race');
 const Planet = require('../../../lib/models/planet');
 const User = require('../../../lib/models/user');
 
+// You're doing too much here that is identical to code.
+// Either 1) simply and just save some dummy data, 
+// 2) use the existing model functions, then modify the data you need.
+
 module.exports = function () {
     let enemy = { name: 'Your rival', email: 'finalboss@aol.com', bankroll: 0 };
     let hero = { name: 'gyro', email: 'goodboy111@aol.com', bankroll: 1000 };
